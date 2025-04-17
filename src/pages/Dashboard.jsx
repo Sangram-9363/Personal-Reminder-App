@@ -40,19 +40,19 @@ export default function Dashboard() {
         <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => navigate("/reminders")}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full sm:w-auto"
           >
             ➕ Add Reminder
           </button>
           <button
             onClick={() => navigate("/all-reminders")}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition w-full sm:w-auto"
           >
             📋 View All Reminders
           </button>
           <button
             onClick={() => navigate("/calendar")}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition w-full sm:w-auto"
           >
             📅 Calendar View
           </button>
@@ -91,4 +91,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
