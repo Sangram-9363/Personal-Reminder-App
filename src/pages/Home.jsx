@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getCurrentUser } from "../utils/localStorage";
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, []);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-4">
       <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6 text-center">
