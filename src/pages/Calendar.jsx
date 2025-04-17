@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { isSameDay, format } from "date-fns";
-import { getCurrentUser, getFromStorage, saveToStorage } from "../utils/localStorage";
+import {
+  getCurrentUser,
+  getFromStorage,
+  saveToStorage,
+} from "../utils/localStorage";
 
 export default function CalendarPage() {
   const [reminders, setReminders] = useState([]);
@@ -10,9 +14,11 @@ export default function CalendarPage() {
   const [dailyReminders, setDailyReminders] = useState([]);
 
   useEffect(() => {
-    const currentUser = getCurrentUser(); // ✅ Fix applied here
+    const currentUser = getCurrentUser();
     const stored = getFromStorage("reminders") || [];
-    const userReminders = stored.filter((r) => r.username === currentUser?.username);
+    const userReminders = stored.filter(
+      (r) => r.username === currentUser?.username
+    );
     setReminders(userReminders);
   }, []);
 
@@ -28,19 +34,6 @@ export default function CalendarPage() {
     setReminders(updated);
     saveToStorage("reminders", updated);
     alert("Reminder deleted.");
-  };
-
-  const handleReplicate = (reminder) => {
-    const newReminder = {
-      ...reminder,
-      id: crypto.randomUUID(),
-      dateTime: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
-    };
-    const updated = [...reminders, newReminder];
-    setReminders(updated);
-    saveToStorage("reminders", updated);
-    alert("Reminder replicated for today.");
   };
 
   return (
@@ -77,14 +70,6 @@ export default function CalendarPage() {
                     >
                       Delete
                     </button>
-                    {new Date(r.dateTime) < new Date() && (
-                      <button
-                        onClick={() => handleReplicate(r)}
-                        className="text-blue-600 text-sm hover:underline"
-                      >
-                        Replicate
-                      </button>
-                    )}
                   </div>
                 </div>
               </div>
