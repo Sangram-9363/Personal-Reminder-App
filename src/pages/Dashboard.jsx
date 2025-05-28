@@ -33,7 +33,7 @@ export default function Dashboard() {
     .slice(0, 10);
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50">
+    <div className="p-6 min-h-screen bg-slate-300 ">
       <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
         <h2 className="text-2xl font-semibold text-gray-800">📌 Dashboard</h2>
 
@@ -84,7 +84,7 @@ export default function Dashboard() {
               <ReminderCard key={r.id} reminder={r} />
             ))
           ) : (
-            <p className="text-gray-500">No upcoming reminders.</p>
+            <p className="text-gray-800 font-medium">No upcoming reminders.</p>
           )}
         </div>
       </div>

@@ -12,7 +12,7 @@ export default function Home() {
     }
   }, []);
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-slate-400 p-4">
       <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6 text-center">
         Personal Reminders Web App
       </h1>

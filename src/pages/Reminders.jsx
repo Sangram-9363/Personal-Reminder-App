@@ -52,7 +52,7 @@ export default function Reminders() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-300x p-4">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white p-6 rounded shadow"

@@ -1,10 +1,10 @@
+// src/components/AuthForm.jsx
 import { useState } from "react";
 
 export default function AuthForm({ type, onSubmit }) {
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
     username: "",
+    email: "",
     password: "",
   });
 
@@ -15,13 +15,16 @@ export default function AuthForm({ type, onSubmit }) {
   };
 
   const validate = () => {
-    let newErrors = {};
-    if (type === "signup" && !formData.fullName)
-      newErrors.fullName = "Full Name is required";
-    if (!formData.email.includes("@")) newErrors.email = "Invalid email";
-    if (!formData.username) newErrors.username = "Username is required";
-    if (!/^\d{6}$/.test(formData.password))
+    const newErrors = {};
+    if (type === "signup" && !formData.username.trim()) {
+      newErrors.username = "Username is required";
+    }
+    if (!formData.email.includes("@")) {
+      newErrors.email = "Invalid email";
+    }
+    if (!/^\d{6}$/.test(formData.password)) {
       newErrors.password = "Password must be 6 digits";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -34,69 +37,67 @@ export default function AuthForm({ type, onSubmit }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-md bg-white p-6 rounded shadow"
-    >
+    <form onSubmit={handleSubmit} >
+      <h2 className="text-3xl font-semibold text-center mb-8 tracking-tight drop-shadow-md ">
+        {type === "login" ? "Welcome Back" : "Create Account"}
+      </h2>
+
       {type === "signup" && (
-        <div className="mb-4">
-          <label className="block font-medium">Full Name</label>
+        <div className="mb-6">
+          <label className="block text-sm font-medium mb-1">Username</label>
           <input
             type="text"
-            name="fullName"
-            value={formData.fullName}
+            name="username"
+            value={formData.username}
             onChange={handleChange}
-            className="w-full border border-gray-300 px-3 py-2 rounded"
+            placeholder="Enter your name"
+            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40 transition"
           />
-          {errors.fullName && (
-            <p className="text-red-500 text-sm">{errors.fullName}</p>
+          {errors.username && (
+            <p className="text-red-400 text-sm mt-1">{errors.username}</p>
           )}
         </div>
       )}
-      <div className="mb-4">
-        <label className="block font-medium">Email</label>
+
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-1">Email</label>
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full border border-gray-300 px-3 py-2 rounded"
+          placeholder="you@example.com"
+          className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40 transition"
         />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-      </div>
-      <div className="mb-4">
-        <label className="block font-medium">Username</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          className="w-full border border-gray-300 px-3 py-2 rounded"
-        />
-        {errors.username && (
-          <p className="text-red-500 text-sm">{errors.username}</p>
+        {errors.email && (
+          <p className="text-red-400 text-sm mt-1">{errors.email}</p>
         )}
       </div>
-      <div className="mb-4">
-        <label className="block font-medium">Password</label>
+
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-1">Password</label>
         <input
           type="password"
           name="password"
           maxLength="6"
           value={formData.password}
           onChange={handleChange}
-          className="w-full border border-gray-300 px-3 py-2 rounded"
+          placeholder="6-digit password"
+          className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40 transition"
         />
         {errors.password && (
-          <p className="text-red-500 text-sm">{errors.password}</p>
+          <p className="text-red-400 text-sm mt-1">{errors.password}</p>
         )}
       </div>
 
       {type === "login" && (
-        <div className="text-right mb-4">
+        <div className="text-right mb-6">
           <button
             type="button"
-            className="text-sm text-blue-600 hover:underline"
+            className="text-sm text-blue-200 hover:underline"
+            onClick={() =>
+              alert("Forgot Password functionality not implemented yet")
+            }
           >
             Forgot Password?
           </button>
@@ -105,7 +106,7 @@ export default function AuthForm({ type, onSubmit }) {
 
       <button
         type="submit"
-        className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition"
+        className="w-full bg-white/20 hover:bg-white/30 text-white font-medium py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
       >
         {type === "login" ? "Login" : "Sign Up"}
       </button>

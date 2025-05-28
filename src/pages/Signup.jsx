@@ -1,26 +1,35 @@
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
 import { getFromStorage, saveToStorage } from "../utils/localStorage";
+import AuthPage from "./AuthPage";
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const handleSignup = (data) => {
     const users = getFromStorage("users") || [];
-    const exists = users.find((u) => u.username === data.username);
+    const exists = users.find((u) => u.email.trim() === data.email.trim());
+
     if (exists) {
-      alert("Username already exists!");
+      alert(`User with email ${data.email} already exists!`);
       return;
     }
-    users.push(data);
+
+    const cleanedData = {
+      ...data,
+      email: data.email.trim(),
+      username: data.username.trim(),
+    };
+
+    users.push(cleanedData);
     saveToStorage("users", users);
     alert("Signup successful! Please log in.");
     navigate("/login");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <AuthForm type="signup" onSubmit={handleSignup} />
+    <div>
+      <AuthPage type="signup" onSubmit={handleSignup} />
     </div>
   );
 };

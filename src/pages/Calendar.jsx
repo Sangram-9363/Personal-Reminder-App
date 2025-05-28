@@ -37,14 +37,45 @@ export default function CalendarPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-slate-300 p-6">
       <h2 className="text-2xl font-semibold mb-6">📅 Calendar View</h2>
 
       <div className="flex flex-col md:flex-row gap-6">
+        {/* <Calendar
+          onChange={setSelectedDate}
+          value={selectedDate}
+          className="bg-white p-2 rounded shadow"
+        /> */}
         <Calendar
           onChange={setSelectedDate}
           value={selectedDate}
           className="bg-white p-2 rounded shadow"
+          tileContent={({ date, view }) => {
+            if (view === "month") {
+              const dayReminders = reminders.filter((r) =>
+                isSameDay(new Date(r.dateTime), date)
+              );
+
+              return (
+                <div className="mt-1 space-y-0.5 px-1 overflow-hidden">
+                  {dayReminders.slice(0, 2).map((r) => (
+                    <p
+                      key={r.id}
+                      className="text-[10px] text-blue-700 truncate"
+                    >
+                      • {r.title}
+                    </p>
+                  ))}
+                  {dayReminders.length > 2 && (
+                    <p className="text-[10px] text-gray-500">
+                      +{dayReminders.length - 2} more
+                    </p>
+                  )}
+                </div>
+              );
+            }
+            return null;
+          }}
         />
 
         <div className="flex-1 bg-white p-4 rounded shadow">

@@ -59,7 +59,7 @@ const Reminders = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-300">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white p-6 rounded shadow"
@@ -75,7 +75,7 @@ const Reminders = () => {
           value={form.title}
           onChange={handleChange}
           error={errors.title}
-          placeholder="e.g. Call Mom 📞"
+          placeholder="e.g. Go to gym 📞"
           maxLength={180}
         />
 

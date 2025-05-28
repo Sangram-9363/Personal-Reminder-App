@@ -57,7 +57,7 @@ export default function AllReminders() {
   }, [filters, reminders]);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen  p-6 bg-slate-300">
       <h2 className="text-2xl font-semibold mb-4">
         All Reminders (Date Range)
       </h2>
