@@ -46,11 +46,6 @@ export default function CalendarPage() {
       <h2 className="text-2xl font-semibold mb-6">📅 Calendar View</h2>
 
       <div className="flex flex-col md:flex-row gap-6">
-        {/* <Calendar
-          onChange={setSelectedDate}
-          value={selectedDate}
-          className="bg-white p-2 rounded shadow"
-        /> */}
         <Calendar
           onChange={setSelectedDate}
           value={selectedDate}
@@ -67,6 +62,7 @@ export default function CalendarPage() {
                     <p
                       key={r.id}
                       className="text-[10px] text-blue-700 truncate"
+                      title={r.title}
                     >
                       • {r.title}
                     </p>
