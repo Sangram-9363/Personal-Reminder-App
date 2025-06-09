@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import Notification from "../components/Notification";
 
 export default function Reminders() {
   const [form, setForm] = useState({
@@ -16,6 +17,7 @@ export default function Reminders() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   const validate = () => {
     const newErrors = {};
@@ -47,12 +49,17 @@ export default function Reminders() {
 
     const updated = [...existing, newReminder];
     localStorage.setItem("reminders", JSON.stringify(updated));
-    alert("Reminder added!");
-    navigate("/dashboard");
+    setNotification({
+      message: `Reminder added successfully!`,
+      type: "success",
+    });
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 1000);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-300x p-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-300 p-4">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white p-6 rounded shadow"
@@ -142,6 +149,11 @@ export default function Reminders() {
           Save Reminder
         </button>
       </form>
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: "", type: "" })}
+      />
     </div>
   );
 }

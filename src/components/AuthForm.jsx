@@ -1,5 +1,6 @@
 // src/components/AuthForm.jsx
 import { useState } from "react";
+import Notification from "./Notification";
 
 export default function AuthForm({ type, onSubmit }) {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ export default function AuthForm({ type, onSubmit }) {
     email: "",
     password: "",
   });
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   const [errors, setErrors] = useState({});
 
@@ -37,7 +39,7 @@ export default function AuthForm({ type, onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} >
+    <form onSubmit={handleSubmit}>
       <h2 className="text-3xl font-semibold text-center mb-8 tracking-tight drop-shadow-md ">
         {type === "login" ? "Welcome Back" : "Create Account"}
       </h2>
@@ -96,7 +98,10 @@ export default function AuthForm({ type, onSubmit }) {
             type="button"
             className="text-sm text-blue-200 hover:underline"
             onClick={() =>
-              alert("Forgot Password functionality not implemented yet")
+              setNotification({
+                message: "Forgot Password functionality not implemented yet",
+                type: "error",
+              })
             }
           >
             Forgot Password?
@@ -110,6 +115,11 @@ export default function AuthForm({ type, onSubmit }) {
       >
         {type === "login" ? "Login" : "Sign Up"}
       </button>
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: "", type: "" })}
+      />
     </form>
   );
 }

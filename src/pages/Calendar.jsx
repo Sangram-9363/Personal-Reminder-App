@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { isSameDay, format } from "date-fns";
+import Notification from "../components/Notification";
 import {
   getCurrentUser,
   getFromStorage,
@@ -12,6 +13,7 @@ export default function CalendarPage() {
   const [reminders, setReminders] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dailyReminders, setDailyReminders] = useState([]);
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   useEffect(() => {
     const currentUser = getCurrentUser();
@@ -33,7 +35,10 @@ export default function CalendarPage() {
     const updated = reminders.filter((r) => r.id !== id);
     setReminders(updated);
     saveToStorage("reminders", updated);
-    alert("Reminder deleted.");
+    setNotification({
+      message: `Reminder Deleted successfully !`,
+      type: "error",
+    });
   };
 
   return (
@@ -110,6 +115,11 @@ export default function CalendarPage() {
           )}
         </div>
       </div>
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: "", type: "" })}
+      />
     </div>
   );
 }
